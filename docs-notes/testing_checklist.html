@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Stock – Testing Checklist</title>
+<style>
+    body{font-family:system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;color:#1e293b}
+    h1{font-size:1.4rem;margin-bottom:4px}
+    .subtitle{color:#64748b;font-size:.875rem;margin-bottom:30px}
+    h2{font-size:1rem;font-weight:700;margin:28px 0 10px;padding:8px 12px;background:#f1f5f9;border-left:4px solid #1d4ed8;border-radius:4px}
+    .test-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #e2e8f0}
+    .test-item:last-child{border-bottom:none}
+    input[type=checkbox]{margin-top:3px;width:16px;height:16px;flex-shrink:0;cursor:pointer}
+    .test-label{flex:1}
+    .test-title{font-size:.875rem;font-weight:600}
+    .test-desc{font-size:.78rem;color:#64748b;margin-top:2px}
+    .test-expected{font-size:.75rem;color:#16a34a;margin-top:2px;font-weight:500}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.68rem;font-weight:600;margin-left:6px}
+    .badge-admin{background:#dbeafe;color:#1d4ed8}
+    .badge-staff{background:#f1f5f9;color:#475569}
+    .badge-both{background:#dcfce7;color:#16a34a}
+    .progress-bar{height:8px;background:#e2e8f0;border-radius:4px;margin-bottom:24px;overflow:hidden}
+    .progress-fill{height:100%;background:#1d4ed8;border-radius:4px;width:0%;transition:width .3s}
+    .progress-label{font-size:.78rem;color:#64748b;margin-bottom:6px}
+</style>
+</head>
+<body>
+<h1>🧪 Smart Stock – Testing Checklist</h1>
+<div class="subtitle">ICT313 IT Engaged Project | Tick each test as you complete it — screenshot for your final report</div>
+<div class="progress-label">Progress: <span id="progressText">0 / 0 tests completed</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<h2>1. Authentication</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Login with valid admin credentials <span class="badge badge-admin">Admin</span></div><div class="test-desc">Username: admin, Password: Admin@1234</div><div class="test-expected">✓ Expected: Redirected to Dashboard</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Login with valid staff credentials <span class="badge badge-staff">Staff</span></div><div class="test-desc">Username: staff1, Password: Admin@1234</div><div class="test-expected">✓ Expected: Dashboard loads with no Manage section in sidebar</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Login with wrong password <span class="badge badge-both">Both</span></div><div class="test-desc">Enter correct username, wrong password</div><div class="test-expected">✓ Expected: "Invalid username or password" error, no login</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Access protected page while logged out <span class="badge badge-both">Both</span></div><div class="test-desc">Log out, visit /dashboard/index.php directly</div><div class="test-expected">✓ Expected: Redirected to login page</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Staff accessing admin-only page <span class="badge badge-staff">Staff</span></div><div class="test-desc">Log in as staff, visit /suppliers/index.php directly</div><div class="test-expected">✓ Expected: 403 Access Denied page</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Logout clears session <span class="badge badge-both">Both</span></div><div class="test-desc">Click logout, press browser back button</div><div class="test-expected">✓ Expected: Cannot access dashboard, redirected to login</div></div></div>
+
+<h2>2. Dashboard</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Stat cards show correct counts <span class="badge badge-both">Both</span></div><div class="test-desc">Check dashboard shows 7 products, 3 suppliers, 5 categories, 2 low stock</div><div class="test-expected">✓ Expected: Numbers match database seed data</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Low stock alert shows correct items <span class="badge badge-both">Both</span></div><div class="test-desc">Verify Multipurpose Cleaner and Chocolate Biscuits appear</div><div class="test-expected">✓ Expected: Both items with yellow highlighted rows</div></div></div>
+
+<h2>3. Inventory</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Inventory list shows all 7 products <span class="badge badge-both">Both</span></div><div class="test-desc">Visit /inventory/index.php</div><div class="test-expected">✓ Expected: Table shows all 7 seeded products</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Search by product name <span class="badge badge-both">Both</span></div><div class="test-desc">Type "water" in search box and submit</div><div class="test-expected">✓ Expected: Only Spring Water 600ml shown</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Filter by category <span class="badge badge-both">Both</span></div><div class="test-desc">Select "Beverages" from the category dropdown</div><div class="test-expected">✓ Expected: Only beverage products shown</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Filter low stock only <span class="badge badge-both">Both</span></div><div class="test-desc">Select "Low Stock Only" filter</div><div class="test-expected">✓ Expected: Only 2 low stock items shown</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Add new product with valid data <span class="badge badge-admin">Admin</span></div><div class="test-desc">Fill all required fields and submit</div><div class="test-expected">✓ Expected: Product in list, success flash message</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Add product with blank name <span class="badge badge-admin">Admin</span></div><div class="test-desc">Submit add form with name left empty</div><div class="test-expected">✓ Expected: Red validation error shown, not submitted</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Add product with duplicate SKU <span class="badge badge-admin">Admin</span></div><div class="test-desc">Try SKU "BEV-001" which already exists</div><div class="test-expected">✓ Expected: "This SKU already exists" error</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Staff cannot see Add/Edit/Delete buttons <span class="badge badge-staff">Staff</span></div><div class="test-desc">Log in as staff, view inventory list</div><div class="test-expected">✓ Expected: Only View and Update Stock buttons visible</div></div></div>
+
+<h2>4. Stock Updates and Transactions</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Staff can update stock quantity <span class="badge badge-staff">Staff</span></div><div class="test-desc">Log in as staff, update any product stock with +10 restock</div><div class="test-expected">✓ Expected: Quantity increases, transaction logged</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Stock cannot go below zero <span class="badge badge-both">Both</span></div><div class="test-desc">Try -999 on a product with only 3 units</div><div class="test-expected">✓ Expected: "Stock cannot go below 0" error</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Transaction logged with correct user <span class="badge badge-both">Both</span></div><div class="test-desc">After updating stock, check Transactions page</div><div class="test-expected">✓ Expected: Entry shows correct product, type, qty, and username</div></div></div>
+
+<h2>5. Suppliers</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Suppliers list shows 3 seeded suppliers <span class="badge badge-admin">Admin</span></div><div class="test-desc">Visit /suppliers/index.php</div><div class="test-expected">✓ Expected: All 3 suppliers with product counts</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Add a new supplier <span class="badge badge-admin">Admin</span></div><div class="test-desc">Fill name and save</div><div class="test-expected">✓ Expected: New supplier in list, success message</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Cannot delete supplier with active products <span class="badge badge-admin">Admin</span></div><div class="test-desc">Try to delete Metro Distributors</div><div class="test-expected">✓ Expected: Error shown, supplier not deleted</div></div></div>
+
+<h2>6. Categories</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Add category using inline form <span class="badge badge-admin">Admin</span></div><div class="test-desc">Type new category name in right-side form</div><div class="test-expected">✓ Expected: Category appears in table immediately</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Cannot add duplicate category name <span class="badge badge-admin">Admin</span></div><div class="test-desc">Try to add "Beverages" again</div><div class="test-expected">✓ Expected: Duplicate error shown</div></div></div>
+
+<h2>7. Reports</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">All 4 report sections load <span class="badge badge-admin">Admin</span></div><div class="test-desc">Visit /reports/index.php</div><div class="test-expected">✓ Expected: Stock by Category, Low Stock, Supplier Summary, Transaction Summary all visible</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Print report hides sidebar <span class="badge badge-admin">Admin</span></div><div class="test-desc">Click the Print button</div><div class="test-expected">✓ Expected: Print preview shows only report content, no sidebar</div></div></div>
+
+<h2>8. User Management</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Create new staff user and log in <span class="badge badge-admin">Admin</span></div><div class="test-desc">Add a new staff user, then log in with those credentials</div><div class="test-expected">✓ Expected: New user can log in with staff view</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Admin cannot delete own account <span class="badge badge-admin">Admin</span></div><div class="test-desc">Check Users list — your own row is marked "You"</div><div class="test-expected">✓ Expected: No delete button on your own account</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Reset another user's password <span class="badge badge-admin">Admin</span></div><div class="test-desc">Edit staff1, set new password, log in as staff1</div><div class="test-expected">✓ Expected: staff1 logs in with new password</div></div></div>
+
+<h2>9. Profile</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Update name updates sidebar immediately <span class="badge badge-both">Both</span></div><div class="test-desc">Go to My Profile, change name, save</div><div class="test-expected">✓ Expected: Sidebar shows new name without re-login</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Wrong current password rejected <span class="badge badge-both">Both</span></div><div class="test-desc">Enter wrong current password in Change Password form</div><div class="test-expected">✓ Expected: "Current password is incorrect" error</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Successfully change own password <span class="badge badge-both">Both</span></div><div class="test-desc">Enter correct current password and matching new passwords</div><div class="test-expected">✓ Expected: Success message, new password works on next login</div></div></div>
+
+<h2>10. Security</h2>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">SQL injection attempt blocked <span class="badge badge-both">Both</span></div><div class="test-desc">On login form, username: ' OR '1'='1</div><div class="test-expected">✓ Expected: Login fails, no database error exposed</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">XSS attempt blocked <span class="badge badge-admin">Admin</span></div><div class="test-desc">Add product with name: &lt;script&gt;alert('xss')&lt;/script&gt;</div><div class="test-expected">✓ Expected: Shows as plain text, no popup fires</div></div></div>
+<div class="test-item"><input type="checkbox" onchange="updateProgress()"><div class="test-label"><div class="test-title">Passwords hashed in database <span class="badge badge-admin">Admin</span></div><div class="test-desc">Check phpMyAdmin → smart_stock → users → Browse</div><div class="test-expected">✓ Expected: password_hash column shows $2y$12$... not plain text</div></div></div>
+
+<script>
+function updateProgress(){
+    const all=document.querySelectorAll('input[type=checkbox]');
+    const checked=document.querySelectorAll('input[type=checkbox]:checked');
+    const pct=Math.round((checked.length/all.length)*100);
+    document.getElementById('progressText').textContent=checked.length+' / '+all.length+' tests completed ('+pct+'%)';
+    document.getElementById('progressFill').style.width=pct+'%';
+}
+updateProgress();
+</script>
+</body>
+</html>
