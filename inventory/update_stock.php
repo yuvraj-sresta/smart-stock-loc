@@ -26,6 +26,14 @@ if (!$product) { setFlash('danger','Product not found.'); redirect(BASE_URL . '/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $changeType = clean($_POST['change_type'] ?? '');
     $quantity   = (int)($_POST['quantity'] ?? 0);
+    
+    // Force correct direction based on transaction type
+    if (in_array($changeType, ['sale', 'damage']) && $quantity > 0) {
+        $quantity = -$quantity;
+    }
+    if (in_array($changeType, ['restock', 'return']) && $quantity < 0) {
+        $quantity = abs($quantity);
+    }
     $notes      = clean($_POST['notes'] ?? '');
 
     $validTypes = ['restock','sale','adjustment','damage','return'];

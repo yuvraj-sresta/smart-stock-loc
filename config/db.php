@@ -5,10 +5,10 @@
  * All queries must use prepared statements — never concatenate user input.
  */
 
-define('DB_HOST', 'localhost');
+ define('DB_HOST', 'localhost');
 define('DB_NAME', 'smart_stock');
-define('DB_USER', 'root');        // Change for production
-define('DB_PASS', '');            // Change for production
+define('DB_USER', 'root');
+define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 
 function getDB(): PDO {

@@ -17,6 +17,6 @@ define('ROLE_ADMIN', 'admin');
 define('ROLE_STAFF', 'staff');
 
 // Redirect paths (relative to project root under XAMPP htdocs)
-define('BASE_URL', '/smart-stock-ims');
+define('BASE_URL', '/smart-stock-loc');
 define('LOGIN_URL', BASE_URL . '/auth/login.php');
 define('DASHBOARD_URL', BASE_URL . '/dashboard/index.php');

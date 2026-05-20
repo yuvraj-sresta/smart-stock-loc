@@ -1,0 +1,27 @@
+/* Smart Stock Animations v3.0 - Safe, nothing hidden */
+@keyframes fadeInUp { from{opacity:.1;transform:translateY(12px)} to{opacity:1;transform:none} }
+@keyframes fadeInDown { from{opacity:.1;transform:translateY(-10px)} to{opacity:1;transform:none} }
+@keyframes spin { to{transform:rotate(360deg)} }
+@keyframes ripple { to{transform:scale(4);opacity:0} }
+
+.animate-fade-up { animation: fadeInUp .35s ease forwards; }
+.alert { animation: fadeInDown .3s ease both; }
+
+.btn { position:relative; overflow:hidden; }
+.ripple-circle { position:absolute; border-radius:50%; background:rgba(255,255,255,.3); transform:scale(0); animation:ripple .5s linear; pointer-events:none; }
+
+.nav-item { transition: background .15s, color .15s, transform .15s !important; }
+.nav-item:not(.active):hover { transform: translateX(3px) !important; }
+.topbar { transition: box-shadow .25s ease !important; }
+.topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.1) !important; }
+
+tr.low-stock td { background:#fffbeb !important; }
+tr.low-stock:hover td { background:#fef3c7 !important; }
+tr.out-of-stock td { background:#fff1f2 !important; }
+tr.out-of-stock:hover td { background:#ffe4e6 !important; }
+
+.spinner { width:16px; height:16px; border:2px solid #e2e5f0; border-top-color:#6366f1; border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
+
+@media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
