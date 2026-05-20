@@ -1,6 +1,1 @@
-config/db.php
 .DS_Store
-Thumbs.db
-test_*.php
-make_hash.php
-seed_users.php
